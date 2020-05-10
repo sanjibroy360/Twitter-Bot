@@ -8,22 +8,29 @@ var T = new Twit(config);
 const app = express();
 
 const hour = 1000 * 60 * 60;
+
 // Data searching
 
 setInterval(getData, hour);
 
 function getData() {
+
+    //Err: Rate Limit Exceed => There are two initial buckets available for GET requests: 15 calls every 15 minutes, and 180 calls every 15 minutes.
     
     var searchItem = {
-        q : "#jobs OR #hiring OR #jobsearch OR #job OR #hr OR #recruiter OR #employment OR #career OR #humanresources OR #work OR #careers OR #nowhiring OR #staffing OR #getJob #recruitmentagency OR #jobhunt OR #talent OR #resume OR #jobseekers OR #jobopening OR #newjob OR #remote_job OR TweetMyJobs OR #recruit OR #recruiters OR #recruiterlife OR #recruiting OR remotejob OR recruitment OR recruitments OR internship",
+        q : "#developerneeded OR #itjob OR #jobposting OR #rtjob OR #jobangels OR #joblisting OR #freelance OR #hotjob OR #webdesignjob OR #jobs OR #hiring OR #jobsearch OR #job OR #recruiter OR #employment OR #career OR #humanresources OR #careers OR #nowhiring OR #staffing OR #jobopening OR #newjob OR #remotejob OR TweetMyJobs OR #recruit OR #recruiters OR #recruiterlife OR #recruiting OR #remotejob OR #recruitment OR #recruitments OR #internship OR #interview OR #developerjob",
     
-        count: 500,
+        count: 10,
         result_type : "recent",
         lang : "en"
+        
     };
-    
-    
+
     function dataReceived(err, data, response) {
+        if(!data || err) {
+            console.log(err);
+            return getData();
+        }
         var id = data.search_metadata.max_id_str;
         retweetIt(id); // calling retweet id and passed the id of the recent tweet
     }
@@ -38,7 +45,6 @@ function getData() {
 
 function retweetIt(tweetId) {
     
-
     // Tweet
 
     // var tweet = {
@@ -63,7 +69,9 @@ function retweetIt(tweetId) {
 
     T.post('statuses/retweet/:id', retweetId, function (err, data, response) {
         if(err) {
-            console.log("Something Wrong! Error: ", err);
+            getData();
+            console.log("Something Wrong!");
+            
         } else {
             console.log("It's Working!")
         }
