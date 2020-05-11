@@ -7,7 +7,7 @@ require("dotenv").config()
 
 const app = express();
 
-const time = 1000 * 10;
+const time = 1000 * 60;
 
 // Data searching
 
