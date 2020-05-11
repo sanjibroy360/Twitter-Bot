@@ -7,11 +7,11 @@ var T = new Twit(config);
 
 const app = express();
 
-const hour = 1000 * 60 * 60;
+const time = 1000 * 60;
 
 // Data searching
 
-setInterval(getData, hour);
+setInterval(getData, time);
 
 function getData() {
 
@@ -40,8 +40,6 @@ function getData() {
 }
 
 // Twitting
-
-
 
 function retweetIt(tweetId) {
     
