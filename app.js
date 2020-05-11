@@ -7,7 +7,7 @@ require("dotenv").config()
 
 const app = express();
 
-const time = 1000 * 60;
+const time = 1000 * 30;
 
 // Data searching
 
@@ -20,7 +20,7 @@ function getData() {
     var searchItem = {
         q: "#developerneeded OR #itjob OR #jobposting OR #rtjob OR #jobangels OR #joblisting OR #freelance OR #hotjob OR #webdesignjob OR #jobs OR #hiring OR #jobsearch OR #job OR #recruiter OR #employment OR #career OR #humanresources OR #careers OR #nowhiring OR #staffing OR #jobopening OR #newjob OR #remotejob OR TweetMyJobs OR #recruit OR #recruiters OR #recruiterlife OR #recruiting OR #remotejob OR #recruitment OR #recruitments OR #internship OR #interview OR #developerjob",
 
-        count: 10,
+        count: 5,
         result_type: "recent",
         lang: "en"
 
