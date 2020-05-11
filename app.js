@@ -1,13 +1,13 @@
 const express = require('express');
-const private = require('./private')
 const config = require('./keys');
 const Twit = require('twit');
-
+console.log(config)
 var T = new Twit(config);
+require("dotenv").config()
 
 const app = express();
 
-const time = 1000 * 60;
+const time = 1000 * 10;
 
 // Data searching
 
@@ -16,33 +16,33 @@ setInterval(getData, time);
 function getData() {
 
     //Err: Rate Limit Exceed => There are two initial buckets available for GET requests: 15 calls every 15 minutes, and 180 calls every 15 minutes.
-    
+
     var searchItem = {
-        q : "#developerneeded OR #itjob OR #jobposting OR #rtjob OR #jobangels OR #joblisting OR #freelance OR #hotjob OR #webdesignjob OR #jobs OR #hiring OR #jobsearch OR #job OR #recruiter OR #employment OR #career OR #humanresources OR #careers OR #nowhiring OR #staffing OR #jobopening OR #newjob OR #remotejob OR TweetMyJobs OR #recruit OR #recruiters OR #recruiterlife OR #recruiting OR #remotejob OR #recruitment OR #recruitments OR #internship OR #interview OR #developerjob",
-    
+        q: "#developerneeded OR #itjob OR #jobposting OR #rtjob OR #jobangels OR #joblisting OR #freelance OR #hotjob OR #webdesignjob OR #jobs OR #hiring OR #jobsearch OR #job OR #recruiter OR #employment OR #career OR #humanresources OR #careers OR #nowhiring OR #staffing OR #jobopening OR #newjob OR #remotejob OR TweetMyJobs OR #recruit OR #recruiters OR #recruiterlife OR #recruiting OR #remotejob OR #recruitment OR #recruitments OR #internship OR #interview OR #developerjob",
+
         count: 10,
-        result_type : "recent",
-        lang : "en"
-        
+        result_type: "recent",
+        lang: "en"
+
     };
 
     function dataReceived(err, data, response) {
-        if(!data || err) {
+        if (!data || err) {
             console.log(err);
             return getData();
         }
         var id = data.search_metadata.max_id_str;
         retweetIt(id); // calling retweet id and passed the id of the recent tweet
     }
-    
-    T.get('search/tweets',searchItem, dataReceived);
-    
+
+    T.get('search/tweets', searchItem, dataReceived);
+
 }
 
 // Twitting
 
 function retweetIt(tweetId) {
-    
+
     // Tweet
 
     // var tweet = {
@@ -62,19 +62,19 @@ function retweetIt(tweetId) {
     // Retweet
 
     var retweetId = {
-        id : tweetId
+        id: tweetId
     };
 
     T.post('statuses/retweet/:id', retweetId, function (err, data, response) {
-        if(err) {
+        if (err) {
             getData();
             console.log("Something Wrong!");
-            
+
         } else {
             console.log("It's Working!")
         }
     })
 }
 
-app.listen(3000, ()=> console.log(`Server is running on port 3000`));
+app.listen(3000, () => console.log(`Server is running on port 3000`));
 

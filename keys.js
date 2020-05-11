@@ -1,10 +1,8 @@
-const private = require('./private');
+require("dotenv").config()
 
 module.exports = {
-
-    consumer_key:         private.consumerKey,
-    consumer_secret:      private.consumerSecret,
-    access_token:         private.accessToken,
-    access_token_secret:  private.accessTokenSecret,
-
+        consumer_key: process.env.consumerKey,
+        consumer_secret: process.env.consumerSecret,
+        access_token: process.env.accessToken,
+        access_token_secret: process.env.accessTokenSecret,
 }
