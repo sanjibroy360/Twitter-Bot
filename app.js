@@ -7,7 +7,7 @@ require("dotenv").config();
 
 const app = express();
 
-const time = 3600000;
+const time = 360005;
 
 // var stream = T.stream('statuses/sample')
 
