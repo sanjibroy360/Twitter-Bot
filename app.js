@@ -7,7 +7,7 @@ require("dotenv").config();
 
 const app = express();
 
-const time = 1000 * 10;
+const time = 3600000;
 
 // var stream = T.stream('statuses/sample')
 
@@ -21,7 +21,7 @@ const time = 1000 * 10;
 setInterval(getData, time);
 
 function getData() {
-  //Err: Rate Limit Exceed => There are two initial buckets available for GET requests: 15 calls every 15 minutes, and 180 calls every 15 minutes.
+ 
 
   var searchItem = {
     q:
@@ -84,7 +84,7 @@ function retweetIt(tweetId) {
   T.post("statuses/retweet/:id", retweetId, function (err, data, response) {
     if (err) {
       getData();
-      console.log("Something Wrong!");
+      console.log(err);
     } else {
       console.log("It's Working!");
     }
